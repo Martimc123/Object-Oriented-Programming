@@ -8,14 +8,8 @@ Link: https://web.tecnico.ulisboa.pt/~david.matos/w/pt/index.php/Programa%C3%A7%
 Execute with with:
 
 ```shell
-$ java -cp ../src/woo-app/po-uuilib.jar:../src/woo-app/woo-app.jar:../src/woo-core/woo-core.jar woo.app.App
+$ java -cp po-uuilib.jar:woo-app.jar:../woo-core/woo-core.jar woo.app.App
 ```
-
-Execute with:
-```shell
-$ java -cp ../src/woo-app/po-uuilib.jar:../src/woo-app/woo-app.jar:../src/woo-core/woo-core.jar woo.app.App
-```
-
 
 Note: Run Tests run.sh (ZSH shell) on the woo-app folder
 
