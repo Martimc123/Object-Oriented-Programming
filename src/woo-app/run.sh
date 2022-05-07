@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-CLASSPATH=../src/woo-app/po-uuilib.jar:../src/woo-app/woo-app.jar:../src/woo-core/woo-core.jar
+CLASSPATH=/home/martimvb/Desktop/po-uuilib-201708311009/po-uuilib.jar:/home/martimvb/project/woo-app/woo-app.jar:/home/martimvb/project/woo-core/woo-core.jar
 
 for x in auto-tests/*.in; do
     if [ -e $x:r.import ]; then
