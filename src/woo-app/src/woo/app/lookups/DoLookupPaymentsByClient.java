@@ -5,8 +5,6 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import woo.Storefront;
 import woo.app.exceptions.UnknownClientKeyException;
-import woo.exceptions.BadEntryException;
-import woo.exceptions.NonUniqueClientKey;
 
 /**
  * Lookup payments by given client.
@@ -24,16 +22,16 @@ public class DoLookupPaymentsByClient extends Command<Storefront> {
   public void execute() throws DialogException,UnknownClientKeyException {
     _form.parse();
     try {
-      if (_receiver.In_clients(client_key.value()))
+      if (_receiver.In_clients(client_key.value().toLowerCase()))
       {
-        _display.popup(_receiver.showPaidSales(client_key.value()));
+        _display.popup(_receiver.showPaidSales(client_key.value().toLowerCase()));
       }
       else
       {
-        _receiver.throwexceptionclient(client_key.value()); 
+        throw new UnknownClientKeyException(client_key.value()); 
       }
-   } catch (NonUniqueClientKey e){
-    throw new UnknownClientKeyException(client_key.value());
+   } catch (UnknownClientKeyException e){
+     _display.popup(e.getMessage());
    }
   }
 }

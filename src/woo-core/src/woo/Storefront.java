@@ -136,15 +136,10 @@ public class Storefront {
     return _store.In_supp(key);
   }
 
-  public void create_supplier(String Id,String name,String address) throws BadEntryException
+  public void create_supplier(String Id,String name,String address)
   {
     _store.create_supplier(Id,name,address);
     save = true;
-  }
-
-  public void throwentryexception(String specify,Exception cause) throws BadEntryException
-  {
-    throw new BadEntryException(specify,cause);
   }
 
   public Supplier getSupplier(String key)
@@ -167,7 +162,7 @@ public class Storefront {
 /*************************************************** CLIENTS **************************************************************************** */
   public Client getClient(String key)
   {
-    return _store.getClient(key);
+    return _store.getClient(key.toLowerCase());
   }
   
   public String showClients()
@@ -217,7 +212,7 @@ public class Storefront {
 
   public Product getProduct(String key)
   {
-    return _store.getProduct(key);
+    return _store.getProduct(key.toLowerCase());
   }
 
   public String showProducts()
@@ -352,15 +347,10 @@ public class Storefront {
     return _store.getDate();
   }
 
-  public void advanceDate_front(int days) throws BadDateException
+  public void advanceDate_front(int days) 
   {
     _store.advanceDate(days);
     save = true;
-  }
-
-  public void throwexceptionclient(String key) throws NonUniqueClientKey
-  {
-    _store.throwexceptionclient(key);
   }
 
   /** Getters and setters */

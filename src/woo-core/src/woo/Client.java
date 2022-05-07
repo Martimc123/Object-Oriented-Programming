@@ -43,7 +43,7 @@ public class Client implements Serializable,P_Observer{
         _state = _normal;
         _points = 0;
         _transactions = new HashMap<Integer, Sale>();
-        _products = new TreeMap<String, Product>(String.CASE_INSENSITIVE_ORDER);
+        _products = new HashMap<String, Product>();
     }
 
     public void update(Notification n)
@@ -176,7 +176,7 @@ public class Client implements Serializable,P_Observer{
     @Override
     @SuppressWarnings("nls")
     public String toString() {
-        String str = String.format("%s|%s|%s|%s|%d|%d", _key, _name, _address,_state.toString(),_purchases_made,_purchases_paid);
+        String str = String.format("%s|%s|%s|%s|%d|%d", _key.toUpperCase(), _name, _address,_state.toString(),_purchases_made,_purchases_paid);
         return str;
     }
 }

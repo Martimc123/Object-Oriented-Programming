@@ -1,0 +1,36 @@
+*** auto-tests/A-03-01-M-ok.out	2020-10-19 19:18:30.952478000 +0100
+--- auto-tests/A-03-01-M-ok.outhyp	2020-12-10 17:57:21.217736000 +0000
+***************
+*** 17,23 ****
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Mostrar cliente: Operação inválida: O cliente '23' não existe.
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 17,23 ----
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: O cliente '23' não existe.
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+***************
+*** 25,31 ****
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Mostrar cliente: Operação inválida: O cliente 'H2OP' não existe.
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 25,31 ----
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: O cliente 'H2OP' não existe.
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes

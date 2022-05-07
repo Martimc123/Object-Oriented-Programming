@@ -22,9 +22,9 @@ public class Store implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202009192006L;
   
-  private Map<String, Product> _products = new TreeMap<String, Product>(String.CASE_INSENSITIVE_ORDER);
-  private Map<String, Client> _clients = new TreeMap<String, Client>(String.CASE_INSENSITIVE_ORDER);
-  private Map<String, Supplier> _suppliers = new TreeMap<String, Supplier>(String.CASE_INSENSITIVE_ORDER);
+  private Map<String, Product> _products = new TreeMap<String, Product>();
+  private Map<String, Client> _clients = new TreeMap<String, Client>();
+  private Map<String, Supplier> _suppliers = new TreeMap<String, Supplier>();
   private Map<Integer, Order> _orders = new TreeMap<Integer, Order>();
   private Map<Integer, Sale> _sales = new TreeMap<Integer, Sale>();
 
@@ -108,10 +108,8 @@ public class Store implements Serializable {
       return _date;
   }
 
-  void advanceDate(int days) throws BadDateException{
-      if (days > 0)  
-        _date += days;
-        else throw new BadDateException(days);
+  void advanceDate(int days){  
+    _date += days;
   }
 
   /**
@@ -138,7 +136,7 @@ public class Store implements Serializable {
                     int price = Integer.parseInt(fields[4]);
                     int critical_value = Integer.parseInt(fields[5]);
                     int stock = Integer.parseInt(fields[6]);
-                    _products.put(key, new Box(key, supplier_key, price, critical_value, stock, service_type));
+                    _products.put(key.toLowerCase(), new Box(key.toLowerCase(), supplier_key.toLowerCase(), price, critical_value, stock, service_type));
                 }
                 else if (patContainer.matcher(fields[0]).matches()){
                     // Creates and registers Containers
@@ -149,7 +147,7 @@ public class Store implements Serializable {
                     int price = Integer.parseInt(fields[5]);
                     int critical_value = Integer.parseInt(fields[6]);
                     int stock = Integer.parseInt(fields[7]);
-                    _products.put(key, new Container(key, supplier_key, price, critical_value, stock, service_level, service_type));
+                    _products.put(key.toLowerCase(), new Container(key.toLowerCase(), supplier_key.toLowerCase(), price, critical_value, stock, service_level, service_type));
                 }
                 else if (patBook.matcher(fields[0]).matches()){
                     // Creates and registers Containers
@@ -161,21 +159,21 @@ public class Store implements Serializable {
                     int price = Integer.parseInt(fields[6]);
                     int critical_value = Integer.parseInt(fields[7]);
                     int stock = Integer.parseInt(fields[8]);
-                    _products.put(key, new Book(key, supplier_key, price, critical_value, stock, title, author, isbn));
+                    _products.put(key.toLowerCase(), new Book(key.toLowerCase(), supplier_key.toLowerCase(), price, critical_value, stock, title, author, isbn));
                 }
                 else if (patClient.matcher(fields[0]).matches()){
                     // Creates and registers Containers
                     String key = fields[1];
                     String name = fields[2];
                     String address = fields[3];
-                    _clients.put(key, new Client(key, name, address));
+                    _clients.put(key.toLowerCase(), new Client(key.toLowerCase(), name, address));
                 }
                 else if (patSupplier.matcher(fields[0]).matches()){
                     // Creates and registers Containers
                     String key = fields[1];
                     String name = fields[2];
                     String address = fields[3];
-                    _suppliers.put(key, new Supplier(key, name, address));
+                    _suppliers.put(key.toLowerCase(), new Supplier(key.toLowerCase(), name, address));
                 }
             }
     }
@@ -302,33 +300,22 @@ public class Store implements Serializable {
         _clients.put(cliente.getId(),cliente);
     }
 
-    public void throwexceptionclient(String key) throws NonUniqueClientKey
-    {
-        throw new NonUniqueClientKey(key);
-    }
-
     public Boolean In_clients(String key)
     {
         if (_clients.containsKey(key))
             return true;
-        else{
+        else
             return false;
-        }
     }
 
 /************************************************************************************************************** */    
 
 /*********************************************** SUPPLIERS ***************************************************** */
 
-    public void create_supplier(String Id,String name,String address) throws BadEntryException
+    public void create_supplier(String Id,String name,String address)
     {
         Supplier forne = new Supplier(Id,name,address);
         _suppliers.put(forne.getId(), forne);
-    }
-
-    public void throwentryexception(String specify,Exception cause) throws BadEntryException
-    {
-        throw new BadEntryException(specify,cause);
     }
 
     

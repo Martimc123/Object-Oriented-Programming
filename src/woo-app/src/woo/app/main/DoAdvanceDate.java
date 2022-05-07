@@ -21,14 +21,19 @@ public class DoAdvanceDate extends Command<Storefront> {
   }
 
   @Override
-  public final void execute() throws DialogException,InvalidDateException{
+  public final void execute() throws DialogException, InvalidDateException{
     _form.parse();
     int dias = _days.value();
     try{
+      if(dias>0){
+        //_receiver.check_sales();
         _receiver.advanceDate_front(dias);
       }
-   catch (BadDateException e) {
-    throw new InvalidDateException(_days.value());
+      else
+        throw new InvalidDateException(dias);
+   }
+   catch (InvalidDateException e) {
+     _display.popup(e.getMessage());
    }
   }
 }

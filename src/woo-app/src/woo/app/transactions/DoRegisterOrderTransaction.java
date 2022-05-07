@@ -9,7 +9,6 @@ import woo.app.exceptions.WrongSupplierException;
 import woo.Supplier;
 import woo.Product;
 import woo.Notification;
-import woo.exceptions.BadEntryException;
 
 /**
  * Register order.
@@ -35,17 +34,14 @@ public class DoRegisterOrderTransaction extends Command<Storefront> {
     _form.parse();
     Supplier sup = _receiver.getSupplier(_sup_id.value());
     int cost = 0;
-    int option = 0;
         try
         {
           //while (_more.value().equals("s")){
           if (sup.getStatus().equals("NÃO")){
-            option = 1;
-            _receiver.throwentryexception(_sup_id.value(),new UnauthorizedSupplierException(_sup_id.value()));
+            throw new UnauthorizedSupplierException(_sup_id.value());
             }
           else if (!_receiver.In_productsSpec(_prod_id.value(),sup.getProducts())){
-            option = 2;
-            _receiver.throwentryexception(_prod_id.value(),new WrongSupplierException(_sup_id.value(),_prod_id.value()));
+            throw new WrongSupplierException(_sup_id.value(),_prod_id.value());
           }
           else
           {
@@ -69,12 +65,13 @@ public class DoRegisterOrderTransaction extends Command<Storefront> {
           //_prod_id = _form.addStringInput(Message.requestProductKey());
           //_quantity = _form.addIntegerInput(Message.requestAmount());
       }
-      catch (BadEntryException e)
+      catch (UnauthorizedSupplierException e)
       {
-        if (option == 1)
-        throw new UnauthorizedSupplierException(_sup_id.value());
-        else if (option == 2)
-        throw new WrongSupplierException(_sup_id.value(),_prod_id.value());
+        _display.popup(e.getMessage());
+      }
+      catch (WrongSupplierException e)
+      {
+        _display.popup(e.getMessage());
       }
     }
 }

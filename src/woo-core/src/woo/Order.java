@@ -15,7 +15,7 @@ public class Order extends Transaction implements Serializable{
         super(key);
         _supplier_key = supp_key;
         _total_cost = cost;
-         _products = new TreeMap<String, Product>(String.CASE_INSENSITIVE_ORDER);
+         _products = new HashMap<String, Product>();
     }
 
     public Map<String, Product> getProds()

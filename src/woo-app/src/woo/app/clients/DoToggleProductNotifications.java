@@ -6,8 +6,6 @@ import pt.tecnico.po.ui.Input;
 import woo.Storefront;
 import woo.app.exceptions.UnknownClientKeyException;
 import woo.app.exceptions.UnknownProductKeyException;
-import woo.exceptions.BadEntryException;
-import woo.exceptions.NonUniqueClientKey;
 /**
  * Toggle product-related notifications.
  */
@@ -26,13 +24,13 @@ public class DoToggleProductNotifications extends Command<Storefront> {
   public void execute() throws DialogException,UnknownClientKeyException,UnknownProductKeyException {
    _form.parse();
     try {
-       if (!_receiver.In_clients(_client_id.value()))
+       if (!_receiver.In_clients(_client_id.value().toLowerCase()))
        {
-        _receiver.throwexceptionclient(_client_id.value());
+        throw new UnknownClientKeyException(_client_id.value());
        }
-       else if (!_receiver.In_products(_product_id.value()))
+       else if (!_receiver.In_products(_product_id.value().toLowerCase()))
        {
-         _receiver.throwentryexception(_product_id.value(),new UnknownProductKeyException(_product_id.value()));
+         throw new UnknownProductKeyException(_product_id.value());
        }
        else
        {
@@ -47,12 +45,11 @@ public class DoToggleProductNotifications extends Command<Storefront> {
           _display.popup(Message.notificationsOn(_client_id.value(),_product_id.value()));
          }
        }
-    } catch (NonUniqueClientKey e){
-      throw new UnknownClientKeyException(_client_id.value());
+    } catch (UnknownClientKeyException e){
+      _display.popup(e.getMessage());
     }
-    catch (BadEntryException e)
-    {
-      throw new UnknownProductKeyException(_product_id.value());
+    catch (UnknownProductKeyException e){
+      _display.popup(e.getMessage());
     }
   }
 

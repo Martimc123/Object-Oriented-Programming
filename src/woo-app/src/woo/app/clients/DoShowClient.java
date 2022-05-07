@@ -29,17 +29,17 @@ public class DoShowClient extends Command<Storefront> {
   public void execute() throws DialogException, UnknownClientKeyException{
     _form.parse();
     try {
-       if (_receiver.In_clients(key.value()))
+       if (_receiver.In_clients(key.value().toLowerCase()))
        {
-         _display.popup(_receiver.showClientNotifications(key.value()));
-        _receiver.getClient(key.value()).setNotifications(new ArrayList<Notification>());
+         _display.popup(_receiver.showClientNotifications(key.value().toLowerCase()));
+        _receiver.getClient(key.value().toLowerCase()).setNotifications(new ArrayList<Notification>());
        }
        else
        {
-         _receiver.throwexceptionclient(key.value());
+         throw new UnknownClientKeyException(key.value()); 
        }
-    } catch (NonUniqueClientKey e){
-      throw new UnknownClientKeyException(key.value());
+    } catch (UnknownClientKeyException e){
+      _display.popup(e.getMessage());
     }
   }
 }

@@ -117,11 +117,11 @@ public class Sale extends Transaction implements Serializable{
         String str = new String();
         if (_status == 0)
         {
-            str = super.toString() + String.format("|%s|%s|%d|%d|%d|%d",_client_key,_product_key,_quantity,_base_cost,_final_cost,_deadline);
+            str = super.toString() + String.format("|%s|%s|%d|%d|%d|%d",_client_key.toUpperCase(),_product_key.toUpperCase(),_quantity,_base_cost,_final_cost,_deadline);
         }
         else if (_status == 1)
         {
-            str = super.toString() + String.format("|%s|%s|%d|%d|%d|%d|%d",_client_key,_product_key,_quantity,_base_cost,_final_cost,_deadline,_payment_date);
+            str = super.toString() + String.format("|%s|%s|%d|%d|%d|%d|%d",_client_key.toUpperCase(),_product_key.toUpperCase(),_quantity,_base_cost,_final_cost,_deadline,_payment_date);
             //return str;
         }
         return str;

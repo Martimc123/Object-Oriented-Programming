@@ -37,7 +37,7 @@ public class Supplier implements Serializable{
         _name = name;
         _address = address;
         _active = "SIM";
-        _products = new TreeMap<String, Product>(String.CASE_INSENSITIVE_ORDER);
+        _products = new HashMap<String, Product>();
         _transactions = new HashMap<Integer, Order>();
     }
 
@@ -94,7 +94,7 @@ public class Supplier implements Serializable{
     @Override
     @SuppressWarnings("nls")
     public String toString() {
-        String str = String.format("%s|%s|%s|%s", _key, _name, _address,_active);
+        String str = String.format("%s|%s|%s|%s", _key.toUpperCase(), _name, _address,_active);
         return str;
     }
 }

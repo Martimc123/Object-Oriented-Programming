@@ -5,7 +5,6 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;                    
 import woo.Storefront;            
 import woo.app.exceptions.UnknownSupplierKeyException;
-import woo.exceptions.BadEntryException;
 
 /**
  * Show all transactions for specific supplier.
@@ -23,18 +22,18 @@ public class DoShowSupplierTransactions extends Command<Storefront> {
   public void execute() throws DialogException,UnknownSupplierKeyException {
     _form.parse();
     try{
-      if (!_receiver.In_supp(_id.value()))
+      if (!_receiver.In_supp(_id.value().toLowerCase()))
       {
-        _receiver.throwentryexception(_id.value(),new UnknownSupplierKeyException(_id.value()));
+        throw new UnknownSupplierKeyException(_id.value());
       }
       else
       {
         _display.popup(_receiver.showOrdersSpec(_receiver.getSupplier(_id.value()).getTransactions()));
       }
     }
-    catch (BadEntryException e)
+    catch (UnknownSupplierKeyException e)
     {
-      throw new UnknownSupplierKeyException(_id.value());
+      _display.popup(e.getMessage());
     }
   }
 

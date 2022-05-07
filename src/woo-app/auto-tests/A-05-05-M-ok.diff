@@ -1,0 +1,19 @@
+*** auto-tests/A-05-05-M-ok.out	2020-10-28 18:49:23.321878000 +0000
+--- auto-tests/A-05-05-M-ok.outhyp	2020-12-10 17:57:23.728480000 +0000
+***************
+*** 56,62 ****
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Nome do cliente: Endereço do cliente: Registar cliente: Operação inválida: O cliente 'pp' já existe.
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes
+--- 56,62 ----
+  4 - Activa/desactivar notificações de um produto
+  5 - Mostrar transacções do cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: Nome do cliente: Endereço do cliente: O cliente 'pp' já existe.
+  Gestão de Clientes
+  1 - Mostrar cliente
+  2 - Mostrar clientes

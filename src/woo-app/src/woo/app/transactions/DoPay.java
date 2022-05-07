@@ -7,7 +7,7 @@ import woo.Storefront;
 import woo.app.exceptions.UnknownTransactionKeyException;
 import woo.Client;
 import woo.Sale;
-import woo.exceptions.BadEntryException;
+
 
 /**
  * Pay transaction (sale).
@@ -27,7 +27,7 @@ public class DoPay extends Command<Storefront> {
     try {
       if (!_receiver.In_Orders(_key.value()) && !_receiver.In_Sales(_key.value()))
       {
-        _receiver.throwentryexception(String.valueOf(_key.value()),new UnknownTransactionKeyException(_key.value()));
+       throw new UnknownTransactionKeyException(_key.value());
       }
       else if (_receiver.In_Orders(_key.value()) && !_receiver.In_Sales(_key.value()))
       {}
@@ -39,7 +39,7 @@ public class DoPay extends Command<Storefront> {
         //int base_cost = venda.getBaseCost();
         int payment_date = _receiver.getDate();
         venda.setPaymentDate(payment_date);
-        Client cliente = _receiver.getClient(venda.getClientKey());
+        Client cliente = _receiver.getClient(venda.getClientKey().toLowerCase());
 
         venda.setPeriod(venda.CalcPeriod(venda.getDeadline(),payment_date,
         _receiver.getProduct(venda.getProductKey()).getNvalue()));
@@ -58,10 +58,9 @@ public class DoPay extends Command<Storefront> {
         _receiver.setBalance();
       }
    }
-   catch (BadEntryException e)
-    {
-      throw new UnknownTransactionKeyException(_key.value());
-    } 
+   catch (UnknownTransactionKeyException e){
+     _display.popup(e.getMessage());
+   } 
   }
 
 }

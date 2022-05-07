@@ -1,0 +1,19 @@
+*** auto-tests/A-02-03-M-ok.out	2020-10-17 16:31:52.516841000 +0100
+--- auto-tests/A-02-03-M-ok.outhyp	2020-12-10 17:57:20.813938000 +0000
+***************
+*** 10,16 ****
+  9 - Menu de Consultas
+  10 - Ver Saldo Global
+  0 - Sair
+! Escolha uma opção: Número de dias a avançar: Avançar Data: Operação inválida: Data inválida: -12
+  Menu Principal
+  1 - Abrir
+  2 - Guardar
+--- 10,16 ----
+  9 - Menu de Consultas
+  10 - Ver Saldo Global
+  0 - Sair
+! Escolha uma opção: Número de dias a avançar: Data inválida: -12
+  Menu Principal
+  1 - Abrir
+  2 - Guardar

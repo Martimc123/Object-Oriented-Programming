@@ -104,7 +104,7 @@ public class Product implements Serializable,CSubject{
     @Override
     @SuppressWarnings("nls")
     public String toString() {
-        String str = String.format("%s|%s|%d|%d|%d", _key, _supplier_key, _price, _critical_value, _stock);
+        String str = String.format("%s|%s|%d|%d|%d", _key.toUpperCase(), _supplier_key.toUpperCase(), _price, _critical_value, _stock);
         return str;
     }
 }

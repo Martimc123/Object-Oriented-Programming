@@ -6,7 +6,6 @@ import pt.tecnico.po.ui.Input;
 import woo.Storefront;
 import woo.app.exceptions.UnknownSupplierKeyException;
 import woo.Supplier;
-import woo.exceptions.BadEntryException;
 
 /**
  * Enable/disable supplier transactions.
@@ -23,15 +22,16 @@ public class DoToggleTransactions extends Command<Storefront> {
   @Override
   public void execute() throws DialogException,UnknownSupplierKeyException {
       _form.parse();
-      String key = _id.value();
+      String key = _id.value().toLowerCase();
       Supplier sup = _receiver.getSupplier(key);
       try{
           if (!_receiver.In_supp(key))
           {
-            _receiver.throwentryexception(_id.value(),new UnknownSupplierKeyException(_id.value()));
+            throw new UnknownSupplierKeyException(_id.value());
           }
           else if (sup.getStatus().equals(Message.yes()))
           {
+            sup.SetStatus(Message.no());
             _display.popup(Message.transactionsOff(_id.value()));
           }
           else if (sup.getStatus().equals(Message.no()))
@@ -40,9 +40,9 @@ public class DoToggleTransactions extends Command<Storefront> {
             _display.popup(Message.transactionsOn(_id.value()));
           }
       }
-      catch (BadEntryException e)
+      catch (UnknownSupplierKeyException e)
       {
-        throw new UnknownSupplierKeyException(_id.value());
+        _display.popup(e.getMessage());
       }
   }
 }

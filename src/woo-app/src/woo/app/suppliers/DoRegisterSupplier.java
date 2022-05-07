@@ -5,7 +5,6 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;                                                      
 import woo.Storefront;
 import woo.app.exceptions.DuplicateSupplierKeyException;
-import woo.exceptions.BadEntryException;
 
 /**
  * Register supplier.
@@ -30,15 +29,15 @@ public class DoRegisterSupplier extends Command<Storefront> {
   public void execute() throws DialogException,DuplicateSupplierKeyException {
     _form.parse();
     try{
-    if (!_receiver.In_supp(_id.value())){
-      _receiver.create_supplier(_id.value(),_name.value(),_address.value());
+    if (!_receiver.In_supp(_id.value().toLowerCase())){
+      _receiver.create_supplier(_id.value().toLowerCase(),_name.value(),_address.value());
     }
     else
-    _receiver.throwentryexception(_id.value(),new DuplicateSupplierKeyException(_id.value()));
+      throw new DuplicateSupplierKeyException(_id.value());
   }
-  catch (BadEntryException e)
+  catch (DuplicateSupplierKeyException e)
   {
-    throw new DuplicateSupplierKeyException(_id.value());
+    _display.popup(e.getMessage());
   }
   }
 }

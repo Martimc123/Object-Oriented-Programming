@@ -8,7 +8,6 @@ import woo.app.exceptions.UnknownTransactionKeyException;
 import woo.Transaction;
 import woo.Order;
 import woo.Sale;
-import woo.exceptions.BadEntryException;
 
 
 /**
@@ -20,7 +19,7 @@ public class DoShowTransaction extends Command<Storefront> {
 
   public DoShowTransaction(Storefront receiver) {
     super(Label.SHOW_TRANSACTION, receiver);
-    _id = _form.addIntegerInput(Message.requestTransactionKey());
+    _id = _form.addIntegerInput(Message.requestClientKey());
   }
 
   @Override
@@ -29,7 +28,7 @@ public class DoShowTransaction extends Command<Storefront> {
     try{
       if (!_receiver.In_Orders(_id.value()) && !_receiver.In_Sales(_id.value()))
       {
-        _receiver.throwentryexception(String.valueOf(_id.value()),new UnknownTransactionKeyException(_id.value()));
+        throw new UnknownTransactionKeyException(_id.value());
       }
       else{
         if (_receiver.In_Orders(_id.value()))
@@ -44,9 +43,9 @@ public class DoShowTransaction extends Command<Storefront> {
         }
       }
     }
-    catch (BadEntryException e)
-      {
-        throw new UnknownTransactionKeyException(_id.value());
-      }
+    catch (UnknownTransactionKeyException e)
+    {
+      _display.popup(e.getMessage());
+    }
   }
 }

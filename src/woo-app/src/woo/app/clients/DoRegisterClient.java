@@ -5,7 +5,6 @@ import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;                                                        
 import woo.Storefront;
 import woo.app.exceptions.DuplicateClientKeyException;
-import woo.exceptions.NonUniqueClientKey;
 import woo.Product;
 
 /**
@@ -31,15 +30,15 @@ public class DoRegisterClient extends Command<Storefront> {
   public void execute() throws DialogException, DuplicateClientKeyException{
     _form.parse();
     try {
-      if (!_receiver.In_clients(_key.value())){
-        _receiver.create_client(_key.value(),_name.value(),_address.value());
+      if (!_receiver.In_clients(_key.value().toLowerCase())){
+        _receiver.create_client(_key.value().toLowerCase(),_name.value(),_address.value());
         //_receiver.getClient(_key.value()).registnotify(new Product());
       }
       else
-        _receiver.throwexceptionclient(_key.value());
-    } catch (NonUniqueClientKey e)
+        throw new DuplicateClientKeyException(_key.value());
+    } catch (DuplicateClientKeyException e)
     {
-      throw new DuplicateClientKeyException(_key.value());
+      _display.popup(e.getMessage());
     }
   }
 }

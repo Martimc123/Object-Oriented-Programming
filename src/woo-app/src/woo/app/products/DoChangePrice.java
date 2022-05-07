@@ -28,14 +28,14 @@ public class DoChangePrice extends Command<Storefront> {
   @Override
   public final void execute() throws DialogException {
     _form.parse();
-    if (_receiver.In_products(_id.value()))
+    if (_receiver.In_products(_id.value().toLowerCase()))
     {
       int old_price = _receiver.getProduct(_id.value()).getPrice();
-      _receiver.ChangePrice(_id.value(),_new_price.value(),_receiver.getProducts());
+      _receiver.ChangePrice(_id.value().toLowerCase(),_new_price.value(),_receiver.getProducts());
       for (Map.Entry<String, Supplier> entry: _receiver.getSuppliers().entrySet())
       {
-        if (_receiver.In_productsSpec(_id.value(),entry.getValue().getProducts()))
-          _receiver.ChangePrice(_id.value(),_new_price.value(),entry.getValue().getProducts());
+        if (_receiver.In_productsSpec(_id.value().toLowerCase(),entry.getValue().getProducts()))
+          _receiver.ChangePrice(_id.value().toLowerCase(),_new_price.value(),entry.getValue().getProducts());
       }
       if (_new_price.value() < old_price)
       {
